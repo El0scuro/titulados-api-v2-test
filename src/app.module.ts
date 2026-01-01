@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { AuthModule } from './auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { EstudianteModule } from './estudiante/estudiante.module';
@@ -16,7 +16,7 @@ import { Estados } from './estados/entities/estado.entity';
 import { Jefatura } from './jefatura/entities/jefatura.entity';
 import { Secretario } from './secretario/entities/secretario.entity';
 import { UserController } from './user/user.controller';
-import { Auth0Module } from './auth0/auth0.module';
+import { Module } from '@nestjs/common';
 
 @Module({
   imports: [
@@ -30,7 +30,7 @@ import { Auth0Module } from './auth0/auth0.module';
         host: configService.get<string>('DB_HOST') || 'localhost',
         port: parseInt(configService.get<string>('DB_PORT')) || 3306,
         username: configService.get<string>('DB_USERNAME') || 'root',
-        password: configService.get<string>('DB_PASSWORD') || '',
+        password: configService.get<string>('DB_PASSWORD') || 'transporteSW0608',
         database: configService.get<string>('DB_NAME') || '',
         entities: [Estudiante, Asignaciones, Notas, Profesor, Estados, Secretario, Jefatura],
         synchronize: configService.get<string>('TYPEORM_SYNC') === 'true',
@@ -46,7 +46,7 @@ import { Auth0Module } from './auth0/auth0.module';
     NotasModule,
     JefaturaModule,
     SecretarioModule,
-    Auth0Module
+    AuthModule
   ],
   controllers: [UserController],
   providers: [],
