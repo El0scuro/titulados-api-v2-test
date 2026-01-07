@@ -12,8 +12,12 @@ export class EstudianteService {
     return 'This action adds a new estudiante';
   }
 
-  findAll() {
-    return `This action returns all estudiante`;
+  async findAll() {
+    const estudiantes = await this.estudianteRepo.find();
+    if(!estudiantes){
+      return null;
+    }
+    return estudiantes;
   }
 
   async findOne(id: string) {

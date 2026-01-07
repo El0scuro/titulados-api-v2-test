@@ -12,7 +12,7 @@ export class ProfesorController {
     return this.profesorService.create(createProfesorDto);
   }
 
-  @Get()
+  @Get('todos')
   findAll() {
     return this.profesorService.findAll();
   }

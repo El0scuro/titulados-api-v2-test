@@ -13,7 +13,7 @@ export class EstudianteController {
     return this.estudianteService.create(createEstudianteDto);
   }
 
-  @Get()
+  @Get('todos')
   findAll() {
     return this.estudianteService.findAll();
   }

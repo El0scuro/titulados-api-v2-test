@@ -37,10 +37,10 @@ export class UserController {
         }
         console.log(estudiante, profesor, secretaria, jefatura);
         if (!estudiante && !profesor && !secretaria && !jefatura) {
-            return res.status(404).json({ message: 'Inexistente' });
+            return res.status(404).json({ message: 'Inexistente', user: user.rol });
         }
         if (estudiante) {
-            return res.status(200).json({ message: 'Student authenticated', user: 'estudiante' });
+            return res.status(200).json({ message: 'Student authenticated', user: 'alumno' });
         }
         if (profesor) {
             return res.status(200).json({ message: 'Professor authenticated', user: 'profesor' });
