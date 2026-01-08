@@ -40,7 +40,7 @@ export class UserController {
             return res.status(404).json({ message: 'Inexistente', user: user.rol });
         }
         if (estudiante) {
-            return res.status(200).json({ message: 'Student authenticated', user: 'alumno' });
+            return res.status(200).json({ message: 'Student authenticated', user: 'estudiante' });
         }
         if (profesor) {
             return res.status(200).json({ message: 'Professor authenticated', user: 'profesor' });
