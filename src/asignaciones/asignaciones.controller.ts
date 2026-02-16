@@ -7,13 +7,19 @@ import { UpdateAsignacioneDto } from './dto/update-asignacione.dto';
 export class AsignacionesController {
   constructor(private readonly asignacionesService: AsignacionesService) {}
 
-  @Post()
-  create(@Body() createAsignacioneDto: CreateAsignacioneDto) {
-    return this.asignacionesService.create(createAsignacioneDto);
+  @Post('crear')
+  async create(@Body() createAsignacioneDto: CreateAsignacioneDto) {
+    try{
+      await this.asignacionesService.create(createAsignacioneDto);
+      return {ok: true}
+    }catch(error){
+      return{ok:false}
+    }
   }
 
-  @Get()
+  @Get('todas')
   findAll() {
+    this.asignacionesService.findAll();
     return this.asignacionesService.findAll();
   }
 
@@ -27,8 +33,8 @@ export class AsignacionesController {
     return this.asignacionesService.update(+id, updateAsignacioneDto);
   }
 
-  @Delete(':id')
+  @Delete('borrar/:id')
   remove(@Param('id') id: string) {
-    return this.asignacionesService.remove(+id);
+    return this.asignacionesService.remove(id);
   }
 }

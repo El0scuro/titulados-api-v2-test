@@ -5,6 +5,7 @@ import {Estudiante } from '../estudiante/entities/estudiante.entity';
 import {Profesor } from '../profesor/entities/profesor.entity';
 import {Secretario } from '../Secretario/entities/secretario.entity';
 import {Jefatura } from '../jefatura/entities/jefatura.entity';
+import { Administrador } from 'src/administrador/entities/administrador.entity';
 
 @Injectable()
 export class AuthService {
@@ -20,16 +21,19 @@ export class AuthService {
 
     @InjectRepository(Jefatura)
     private readonly jefaturaRepo: Repository<Jefatura>,
+
+    @InjectRepository(Administrador)
+    private readonly administradorRepo: Repository<Administrador>
   ) {}
   async encontrar(correo : string){
     const estudiante = await this.estudianteRepo.findOneBy({mail: correo});
     const profesor = await this.profesorRepo.findOneBy({mail: correo});
     const secretario = await this.secretarioRepo.findOneBy({mail: correo});
     const jefatura = await this.jefaturaRepo.findOneBy({mail: correo});
-    const caja: (Estudiante| Profesor| Secretario| Jefatura| null)[] = [estudiante, profesor, secretario, jefatura];
+    const administrador = await this.administradorRepo.findOneBy({mail: correo})
+    const caja: (Estudiante| Profesor| Secretario| Jefatura| Administrador| null)[] = [estudiante, profesor, secretario, jefatura, administrador];
     for(let i = 0; i < caja.length;i++){
         if(caja[i]){
-            console.log("Existeee",caja[i]);
             return(caja[i]);
         }
     }

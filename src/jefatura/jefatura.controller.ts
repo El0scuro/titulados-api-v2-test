@@ -7,12 +7,12 @@ import { UpdateJefaturaDto } from './dto/update-jefatura.dto';
 export class JefaturaController {
   constructor(private readonly jefaturaService: JefaturaService) {}
 
-  @Post()
+  @Post('crear')
   create(@Body() createJefaturaDto: CreateJefaturaDto) {
     return this.jefaturaService.create(createJefaturaDto);
   }
 
-  @Get()
+  @Get('todas')
   findAll() {
     return this.jefaturaService.findAll();
   }
@@ -28,8 +28,8 @@ findOne(@Param('id') id: string) {
     return this.jefaturaService.update(+id, updateJefaturaDto);
   }
 
-  @Delete(':id')
+  @Delete('borrar/:id')
   remove(@Param('id') id: string) {
-    return this.jefaturaService.remove(+id);
+    return this.jefaturaService.remove(id);
   }
 }

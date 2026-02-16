@@ -18,6 +18,7 @@ export class Notas {
   mailEstudiante: string;
 
   @Column("decimal", {
+    
     name: "notaGuia",
     nullable: true,
     precision: 4,
@@ -62,5 +63,5 @@ export class Notas {
     onUpdate: "NO ACTION",
   })
   @JoinColumn([{ name: "mailEstudiante", referencedColumnName: "mail" }])
-  mailEstudiante2: Estudiante;
+  estudianteRef: Estudiante;
 }

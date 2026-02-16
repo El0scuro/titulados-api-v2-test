@@ -1,4 +1,15 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateEstadoDto } from './create-estado.dto';
+import { IsEnum, IsString } from 'class-validator';
 
-export class UpdateEstadoDto extends PartialType(CreateEstadoDto) {}
+export enum TipoEstado {
+  APROBADO = 'aceptado',
+  PENDIENTE = 'pendiente',
+  REPROBADO = 'rechazado',
+}
+
+export class UpdateEstadoDto {
+  @IsString()
+  mailEstudiante: string;
+
+  @IsEnum(TipoEstado)
+  estado: TipoEstado;
+}

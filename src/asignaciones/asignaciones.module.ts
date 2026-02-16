@@ -5,11 +5,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Asignaciones } from './entities/asignacione.entity';
 import { JwtModule } from '@nestjs/jwt';
 
+import { MailModule } from 'src/mail/mail.module';
+
 @Module({
   imports: [TypeOrmModule.forFeature([Asignaciones]), JwtModule.register({
       secret: process.env.JWT_SECRET_KEY,
       signOptions: { expiresIn: '300m' },
-    }),],
+    }),
+  MailModule],
   controllers: [AsignacionesController],
   providers: [AsignacionesService],
 })

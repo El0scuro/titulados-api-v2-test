@@ -8,12 +8,19 @@ import { UpdateJefaturaDto } from './dto/update-jefatura.dto';
 @Injectable()
 export class JefaturaService {
   constructor(@InjectRepository(Jefatura) private readonly jefaturaRepo: Repository<Jefatura>) {}
-  create(createEstudianteDto: CreateJefaturaDto) {
-    return 'This action adds a new jefatura';
+  
+  async create(createJefaturaDto: CreateJefaturaDto): Promise<Jefatura> {
+    const jefatura = this.jefaturaRepo.create(createJefaturaDto);
+    return await this.jefaturaRepo.save(jefatura);
   }
 
-  findAll() {
-    return `This action returns all jefatura`;
+  async findAll() {
+    const jefaturas: Jefatura[] = await this.jefaturaRepo.find();
+    
+    if(!jefaturas){
+      return null;
+    }
+    return jefaturas;
   }
 
   async findOne(id: string) {
@@ -30,7 +37,7 @@ export class JefaturaService {
     return `This action updates a #${id} jefatura`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} jefatura`;
+  remove(id: string) {
+    return this.jefaturaRepo.delete(id);
   }
 }

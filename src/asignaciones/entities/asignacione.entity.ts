@@ -1,11 +1,6 @@
-import {
-  Column,
-  Entity,
-  Index,
-  JoinColumn,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-} from "typeorm";
+import {Column, Entity, Index,
+  JoinColumn, ManyToOne, 
+  PrimaryGeneratedColumn} from "typeorm";
 import { Estudiante } from "../../estudiante/entities/estudiante.entity";
 import { Profesor } from "../../profesor/entities/profesor.entity";
 
@@ -13,6 +8,7 @@ import { Profesor } from "../../profesor/entities/profesor.entity";
   unique: true,
 })
 @Index("mailProfesor", ["mailProfesor"], {})
+
 @Entity("asignaciones", { schema: "tituladosv2" })
 export class Asignaciones {
   @PrimaryGeneratedColumn({ type: "int", name: "id" })
@@ -31,19 +27,19 @@ export class Asignaciones {
   rol: "informante" | "guia" | "presidente" | "secretario";
 
   @Column("date", { name: "fechaAsignacion", nullable: true })
-  fechaAsignacion: string | null;
+  fechaAsignacion: Date | null;
 
   @ManyToOne(() => Estudiante, (estudiante) => estudiante.asignaciones, {
     onDelete: "NO ACTION",
     onUpdate: "NO ACTION",
   })
   @JoinColumn([{ name: "mailEstudiante", referencedColumnName: "mail" }])
-  mailEstudiante2: Estudiante;
+  estudianteRef: Estudiante;
 
   @ManyToOne(() => Profesor, (profesor) => profesor.asignaciones, {
     onDelete: "NO ACTION",
     onUpdate: "NO ACTION",
   })
   @JoinColumn([{ name: "mailProfesor", referencedColumnName: "mail" }])
-  mailProfesor2: Profesor;
+  profesorRef: Profesor;
 }

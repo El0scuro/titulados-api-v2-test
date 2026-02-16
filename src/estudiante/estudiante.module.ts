@@ -4,10 +4,11 @@ import { EstudianteController } from './estudiante.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Estudiante } from './entities/estudiante.entity';
 import { JwtModule } from '@nestjs/jwt';
+import { NotasModule } from 'src/notas/notas.module';
 
 @Global()
 @Module({
-  imports: [TypeOrmModule.forFeature([Estudiante]), JwtModule.register({
+  imports: [TypeOrmModule.forFeature([Estudiante]), NotasModule, JwtModule.register({
     secret: process.env.JWT_SECRET_KEY,
     signOptions: { expiresIn: '300m' },
   }),],

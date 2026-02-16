@@ -3,29 +3,39 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import {Profesor} from "./entities/profesor.entity"
 import { CreateProfesorDto } from './dto/create-profesor.dto';
-import { UpdateProfesorDto } from './dto/update-profesor.dto';
+
 
 @Injectable()
 export class ProfesorService {
   constructor(@InjectRepository(Profesor) private readonly profesorRepo: Repository<Profesor>) {}
   create(createProfesorDto: CreateProfesorDto) {
-    return 'This action adds a new profesor';
+    const profesor = this.profesorRepo.create({
+      nombre: createProfesorDto.nombre,
+      segundoNombre: createProfesorDto.segundoNombre,
+      apellido: createProfesorDto.apellido,
+      segundoApellido: createProfesorDto.segundoApellido,
+      mail: createProfesorDto.mail,
+      sede: createProfesorDto.sede
+    })
+    return this.profesorRepo.save(profesor);
   }
 
-  findAll() {
-    return `This action returns all profesor`;
+  async findAll() {
+    const profesores: Profesor[] = await this.profesorRepo.find();
+        if(!profesores){
+          return null;
+        }
+        return profesores;
   }
 
   async findOne(id: string) {
     const profesor = await this.profesorRepo.findOneBy({mail: id});
+    console.log(id)
+    console.log(profesor)
     return profesor;
   }
 
-  update(id: number, updateProfesorDto: UpdateProfesorDto) {
-    return `This action updates a #${id} profesor`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} profesor`;
+  async remove(id: string) {
+    return this.profesorRepo.delete(id);
   }
 }

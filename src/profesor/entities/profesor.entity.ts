@@ -18,6 +18,8 @@ export class Profesor {
   @Column("varchar", { name: "segundoApellido", nullable: true, length: 100 })
   segundoApellido: string | null;
 
-  @OneToMany(() => Asignaciones, (asignaciones) => asignaciones.mailProfesor2)
+  @Column("varchar", {name: "sede", length:100 })
+  sede: string | null;
+  @OneToMany(() => Asignaciones, (asignaciones) => asignaciones.profesorRef)
   asignaciones: Asignaciones[];
 }

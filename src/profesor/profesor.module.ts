@@ -1,4 +1,4 @@
-import { Global, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { ProfesorService } from './profesor.service';
 import { ProfesorController } from './profesor.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';

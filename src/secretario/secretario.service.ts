@@ -7,13 +7,20 @@ import { UpdateSecretarioDto } from './dto/update-secretario.dto';
 
 @Injectable()
 export class SecretarioService {
-  constructor(@InjectRepository(Secretario) private readonly secretarioRepo: Repository<Secretario>) {}
-  create(createEstudianteDto: CreateSecretarioDto) {
-    return 'This action adds a new estudiante';
-  }
+  constructor(@InjectRepository(Secretario) 
+  private readonly secretarioRepo: Repository<Secretario>) {}
 
-  findAll() {
-    return `This action returns all estudiante`;
+  async create(createSecretarioDto: CreateSecretarioDto): Promise<Secretario> {
+      const secretario = this.secretarioRepo.create(createSecretarioDto);
+      return await this.secretarioRepo.save(secretario);
+    }
+
+  async findAll() {
+    const secretarios: Secretario[] = await this.secretarioRepo.find();
+    if(!secretarios){
+      return null;
+    }
+    return secretarios;
   }
 
   async findOne(id: string) {
@@ -28,7 +35,8 @@ export class SecretarioService {
     return `This action updates a #${id} secretario`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} secretario`;
+  remove(id: string) {
+    console.log(id)
+    return this.secretarioRepo.delete(id);
   }
 }

@@ -7,12 +7,13 @@ import {
   Type,
 } from '@nestjs/common';
 import { ModuleRef } from '@nestjs/core';
+import { AdministradorService } from 'src/administrador/administrador.service';
 import { EstudianteService } from 'src/estudiante/estudiante.service';
 import { JefaturaService } from 'src/jefatura/jefatura.service';
 import { ProfesorService } from 'src/profesor/profesor.service';
 import { SecretarioService } from 'src/secretario/secretario.service';
 
-export function UserTypeGuard(userType: 'estudiante' | 'profesor' | 'secretario' | 'jefatura'): Type<CanActivate> {
+export function UserTypeGuard(userType: 'estudiante' | 'profesor' | 'secretario' | 'jefatura' | 'administrador'): Type<CanActivate> {
   @Injectable()
   class RoleGuard implements CanActivate {
     constructor(private moduleRef: ModuleRef,
@@ -20,6 +21,7 @@ export function UserTypeGuard(userType: 'estudiante' | 'profesor' | 'secretario'
       private readonly profesorService: ProfesorService,
       private readonly secretarioService: SecretarioService,
       private readonly jefaturaService: JefaturaService,
+      private readonly administradorService: AdministradorService
 
     ) { }
 
@@ -57,6 +59,13 @@ export function UserTypeGuard(userType: 'estudiante' | 'profesor' | 'secretario'
           const jefatura = await this.jefaturaService.findOne(user.email);
           if (!jefatura) {
             throw new UnauthorizedException('Jefatura not found.');
+          }
+
+          break;
+        case 'administrador':
+          const administrador = await this.administradorService.findOne(user.email);
+          if (!administrador) {
+            throw new UnauthorizedException('Administrador not found.');
           }
 
           break;

@@ -11,7 +11,7 @@ async function bootstrap() {
     allowedHeaders: 'Content-Type, Accept, Authorization', // Include Authorization
     credentials: true,
   })); 
-  app.setGlobalPrefix("api/");
+  app.setGlobalPrefix("api");
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,              //Usuario envía cosas que no corresponda

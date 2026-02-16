@@ -4,7 +4,6 @@ import { NotasController } from './notas.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Notas } from './entities/nota.entity';
 import { JwtModule } from '@nestjs/jwt';
-
 @Module({
   imports: [TypeOrmModule.forFeature([Notas]), JwtModule.register({
       secret: process.env.JWT_SECRET_KEY,
@@ -12,5 +11,6 @@ import { JwtModule } from '@nestjs/jwt';
     }),],
   controllers: [NotasController],
   providers: [NotasService],
+  exports: [NotasService]
 })
 export class NotasModule {}

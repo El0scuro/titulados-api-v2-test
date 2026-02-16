@@ -1,18 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Body, Patch, Param, Delete } from '@nestjs/common';
 import { EstadosService } from './estados.service';
-import { CreateEstadoDto } from './dto/create-estado.dto';
 import { UpdateEstadoDto } from './dto/update-estado.dto';
 
 @Controller('estados')
 export class EstadosController {
   constructor(private readonly estadosService: EstadosService) {}
 
-  @Post()
-  create(@Body() createEstadoDto: CreateEstadoDto) {
-    return this.estadosService.create(createEstadoDto);
-  }
-
-  @Get()
+  @Get('todos')
   findAll() {
     return this.estadosService.findAll();
   }
@@ -22,9 +16,10 @@ export class EstadosController {
     return this.estadosService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateEstadoDto: UpdateEstadoDto) {
-    return this.estadosService.update(+id, updateEstadoDto);
+  @Patch('actualizar')
+    updateEstado(@Body() dto: UpdateEstadoDto) {
+    console.log("controleerr")
+    return this.estadosService.update(dto);
   }
 
   @Delete(':id')
