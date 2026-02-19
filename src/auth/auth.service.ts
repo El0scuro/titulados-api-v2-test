@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import {Estudiante } from '../estudiante/entities/estudiante.entity';
 import {Profesor } from '../profesor/entities/profesor.entity';
-import {Secretario } from '../Secretario/entities/secretario.entity';
+import {Secretario } from '../secretario/entities/secretario.entity';
 import {Jefatura } from '../jefatura/entities/jefatura.entity';
 import { Administrador } from 'src/administrador/entities/administrador.entity';
 
