@@ -11,7 +11,7 @@ RUN pnpm install
 
 COPY . .
 
-RUN pnpm run build
+RUN pnpm build
 
 
 # ---------- Production stage ----------
